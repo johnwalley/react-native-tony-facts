@@ -20,18 +20,26 @@ const firebaseConfig = {
 };
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
+function shuffle(a) {
+    for (let i = a.length; i; i--) {
+        let j = Math.floor(Math.random() * i);
+        [a[i - 1], a[j]] = [a[j], a[i - 1]];
+    }
+}
+
 export default class ReactNativeTonyFacts extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { facts: ['Loading'] };
+    this.state = { facts: ['Generating facts...'] };
 
     factsRef = firebaseApp.database().ref('facts/');
 
     factsRef.on('value', (snap) => {
       const facts = [];
       snap.forEach((child) => { facts.push(child.val()) });
-      this.setState({facts: facts.concat(facts).concat(facts)});
+      shuffle(facts);
+      this.setState({facts: facts});
     });
   }
 
