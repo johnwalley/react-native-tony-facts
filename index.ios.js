@@ -24,18 +24,20 @@ export default class ReactNativeTonyFacts extends React.Component {
   constructor(props) {
     super(props);
 
-    this.itemsRef = firebaseApp.database().ref();
+    this.state = { facts: ['Loading'] };
 
-    console.log(this.itemsRef);
+    factsRef = firebaseApp.database().ref('facts/');
 
-    itemsRef.on('value', (snap) => {
-      console.log(snap);
+    factsRef.on('value', (snap) => {
+      const facts = [];
+      snap.forEach((child) => { facts.push(child.val()) });
+      this.setState({facts: facts.concat(facts).concat(facts)});
     });
   }
 
   render() {
     return (
-      <FactsSwiper />
+      <FactsSwiper facts={this.state.facts}/>
     );
   }
 }
