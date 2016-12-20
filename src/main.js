@@ -22,7 +22,7 @@ const styles = {
   }
 }
 
-export const FactsSwiper = ({facts}) => <Swiper style={styles.wrapper} showsPagination={false} showsButtons>
+export const FactsSwiper = ({facts, width}) => <Swiper width={width} style={styles.wrapper} showsPagination={false} showsButtons>
   {facts.map((fact, i) => <View style={styles.slide} key={i}>
     <Image
       source={require('../img/photo.png')}

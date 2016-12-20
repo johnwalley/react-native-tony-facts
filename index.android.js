@@ -7,6 +7,7 @@
 import React from 'react';
 import {
   AppRegistry,
+  View
 } from 'react-native';
 import { FactsSwiper } from './src/main';
 import * as firebase from 'firebase';
@@ -21,10 +22,10 @@ const firebaseConfig = {
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 function shuffle(a) {
-    for (let i = a.length; i; i--) {
-        let j = Math.floor(Math.random() * i);
-        [a[i - 1], a[j]] = [a[j], a[i - 1]];
-    }
+  for (let i = a.length; i; i--) {
+    let j = Math.floor(Math.random() * i);
+    [a[i - 1], a[j]] = [a[j], a[i - 1]];
+  }
 }
 
 export default class ReactNativeTonyFacts extends React.Component {
@@ -39,13 +40,15 @@ export default class ReactNativeTonyFacts extends React.Component {
       const facts = [];
       snap.forEach((child) => { facts.push(child.val()) });
       shuffle(facts);
-      this.setState({facts: facts});
+      this.setState({ facts: facts });
     });
   }
 
   render() {
     return (
-      <FactsSwiper facts={this.state.facts}/>
+      <View onLayout={(evt) => this.setState({ width: evt.nativeEvent.layout.width })}>
+        <FactsSwiper facts={this.state.facts} width={this.state.width} />
+      </View>
     );
   }
 }
