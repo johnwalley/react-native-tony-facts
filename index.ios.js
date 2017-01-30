@@ -21,6 +21,14 @@ const firebaseConfig = {
 };
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
+const styles = {
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+}
+
 function shuffle(a) {
   for (let i = a.length; i; i--) {
     let j = Math.floor(Math.random() * i);
@@ -46,8 +54,8 @@ export default class ReactNativeTonyFacts extends React.Component {
 
   render() {
     return (
-      <View onLayout={(evt) => this.setState({ width: evt.nativeEvent.layout.width })}>
-        <FactsSwiper facts={this.state.facts} width={this.state.width} />
+      <View style={styles.container} onLayout={(evt) => this.setState({ width: evt.nativeEvent.layout.width, height: evt.nativeEvent.layout.height })}>
+        <FactsSwiper facts={this.state.facts} width={this.state.width} height={this.state.height} />
       </View>
     );
   }
