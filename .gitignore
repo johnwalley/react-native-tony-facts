@@ -1,3 +1,5 @@
+*.jks
+
 # OSX
 #
 .DS_Store
